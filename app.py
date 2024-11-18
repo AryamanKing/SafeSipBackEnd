@@ -39,7 +39,7 @@ def getPrompt(concentration, metalName, waterSource):
         ...
     ]
     }
-
+    - Don't include tildas, or new line characters in your answer. The answer should be a single line JSON object.
     - the label must be a String. either 'safe' or 'not safe'
     - drinkability_score: Number. a score from 0 to 100 of how safe it is to drink. Don't return fractions or text
     - ways_to_fix_source: this will be a list of purification steps for the water source. max 3 major ways. these steps must be related to the water source. example: "if water source is a well and we detect copper, what can we do to purify the entire well?"
@@ -102,6 +102,7 @@ def home():
     if response.status_code != 200:
         abort(response.status_code, description=f"Error from API: {response.text}")
 
+    print(response.json())
     json_res = json.loads(response.json()['candidates'][0]['content']['parts'][0]['text'])
 
     return json_res
